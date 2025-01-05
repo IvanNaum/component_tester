@@ -1,6 +1,11 @@
 #include <iostream>
 
+extern "C" {
+#include "log.h"
+}
+
 int main() {
-    std::cout << "Success!" << std::endl;
+    log_info("Success!");
+
     return 0;
 }

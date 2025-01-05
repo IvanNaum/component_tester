@@ -6,14 +6,13 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(
     ${PROJECT_NAME}
-    main.cpp
-    
-    # TODO: add executable files
+    ./main.cpp
+
+    ./src/common/logc/log.c
 )
 
 include_directories(
-    
-    # TODO: add include directories
+    ./src/common/logc/
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Werror)
