@@ -2,8 +2,11 @@
 
 ## Project Structure 
 
+- [cmake](cmake/) - configs for building application
 - [common](common/) - symbol link to common modules
-- [openocd](openocd/) - config for programming MPU
+- [Core](Core/) - source code
+- [Drivers](Drivers/) - STM32 SDK, CMSIS, HAL, LL
+- [openocd](openocd/) - configs for programming and debug board
 - [vscode_template](vscode_template/) - templates for initializing project in VS code
 
 
