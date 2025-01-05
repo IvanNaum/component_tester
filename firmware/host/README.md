@@ -12,7 +12,17 @@
 ``` shell
 mkdir build
 cd build
-cmake .. 
+```
+
+For test mode:
+```shell
+cmake -U DEBUG_MODE ..
+cmake --build .
+```
+
+For debug mode:
+```shell
+cmake -D DEBUG_MODE=1 ..
 cmake --build .
 ```
 
