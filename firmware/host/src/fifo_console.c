@@ -8,16 +8,24 @@
 
 #include "commands.h"
 
-static uint16_t _read_func(char* buffer) { return read(fifo_console_tx, buffer, sizeof(buffer)); }
-static void _write_func(char* buffer) { write(fifo_console_rx, buffer, strlen(buffer)); }  // TODO: add printf mode
+static int _rx_fifo = -1;
+static int _tx_fifo = -1;
+
+static uint16_t _read_func(char* buffer) { return read(_rx_fifo, buffer, CONSOLE_MAX_COMMAND_SIZE); }
+static void _write_func(char* buffer) {
+    if (_tx_fifo < 0) return;
+
+    write(_tx_fifo, buffer, strlen(buffer));
+    // TODO: add printf mode
+}
 
 void fifo_console_init(console_t* state) {
     // TODO: refactoring tx and rx
     mkfifo(FIFO_CONSOLE_TX_FILENAME, 0777);
     mkfifo(FIFO_CONSOLE_RX_FILENAME, 0777);
 
-    fifo_console_tx = open(FIFO_CONSOLE_TX_FILENAME, O_RDWR | O_NONBLOCK);
-    fifo_console_rx = open(FIFO_CONSOLE_RX_FILENAME, O_RDWR | O_NONBLOCK);
+    _rx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_RDONLY | O_NONBLOCK);
+    _tx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDWR | O_NONBLOCK);
 
     console_init(state, commands_list, NUM_COMMANDS, _read_func, _write_func);
 }
@@ -26,6 +34,6 @@ void fifo_console_process(console_t* state) { console_process(state); }
 
 void fifo_console_deinit(console_t* state) {
     (void)state;
-    close(fifo_console_tx);
-    close(fifo_console_rx);
+    close(_tx_fifo);
+    close(_rx_fifo);
 }

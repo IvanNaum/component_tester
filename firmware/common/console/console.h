@@ -11,9 +11,9 @@ extern "C" {
 
 #include <stdint.h>
 
-#define CONSOLE_COMMAND_MAX_SIZE (64)
+#define CONSOLE_MAX_COMMAND_SIZE (64)
 #define CONSOLE_MAX_OUTPUT_SIZE (256)
-#define CONSOLE_COMMAND_MAX_ARGS (6)
+#define CONSOLE_MAX_COMMAND_ARGS (6)
 
 struct console;
 

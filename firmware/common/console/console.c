@@ -19,10 +19,10 @@ void console_init(
 
 void console_process(console_t* state) {
     uint16_t command_line_len = 0;
-    uint16_t arg_shift[CONSOLE_COMMAND_MAX_ARGS] = {0};  // [0] - command name, next - args
+    uint16_t arg_shift[CONSOLE_MAX_COMMAND_ARGS] = {0};  // [0] - command name, next - args
     static uint8_t nargs = 0;
-    static char command_line[CONSOLE_COMMAND_MAX_SIZE];
-    static char rx_line[CONSOLE_COMMAND_MAX_SIZE];
+    static char command_line[CONSOLE_MAX_COMMAND_SIZE];
+    static char rx_line[CONSOLE_MAX_COMMAND_SIZE];
 
     uint16_t count = state->read(rx_line);
     if (0 == count) return;

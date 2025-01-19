@@ -7,21 +7,23 @@
 #include "catch.hpp"
 #include "version.h"
 
-TEST_CASE("Base console init", "[console][help]") {
+TEST_CASE("Console init", "[console][version]") {
     console_t console;
     fifo_console_init(&console);
 
-    REQUIRE(fifo_console_tx > 0);
-    REQUIRE(fifo_console_rx > 0);
+    int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
+    int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
+
+    REQUIRE(tx_fifo > 0);
+    REQUIRE(rx_fifo > 0);
 
     const char* command = "version\r\n";
-    write(fifo_console_tx, command, strlen(command));
+    write(tx_fifo, command, strlen(command));
     fifo_console_process(&console);
 
     char result[CONSOLE_MAX_OUTPUT_SIZE];
-    int res_len = read(fifo_console_rx, result, CONSOLE_MAX_OUTPUT_SIZE);
+    int res_len = read(rx_fifo, result, CONSOLE_MAX_OUTPUT_SIZE);
 
-    // TODO add reading and REQUIRE
     SECTION("VALID") {
         REQUIRE(res_len > 0);
         REQUIRE(strstr(result, VERSION));
