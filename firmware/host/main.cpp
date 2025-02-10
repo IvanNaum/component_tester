@@ -7,10 +7,15 @@ extern "C" {
 #include "log.h"
 }
 
+#include "leds.h"
+
+leds_t leds;
+
 #define LOG_DEFAULT_LEVEL LOG_DEBUG
 
 int main(int argc, char** argv) {
     log_set_level(LOG_DEFAULT_LEVEL);
+    // leds_init(&leds);
 
 #ifdef DEBUG_MODE
     // Arbitrary code for debug modules

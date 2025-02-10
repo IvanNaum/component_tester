@@ -8,6 +8,7 @@ add_executable(
     ${PROJECT_NAME}
     ./main.cpp
 
+    ./src/leds_host.c
     ./src/fifo_console.c
 
     ./src/common/logc/log.c
@@ -22,6 +23,7 @@ include_directories(
     ./src
     ./src/common
     ./src/common/logc/
+    ./src/common/leds/
     ./src/common/catch/
     ./src/common/console/
     ./src/common/commands/

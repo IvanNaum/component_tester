@@ -8,7 +8,8 @@
 
 static void _help_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs);
 static void _version_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs);
-static void _led_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs);
+
+extern void leds_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs);
 
 command_t commands_list[] = {
     {
@@ -22,16 +23,13 @@ command_t commands_list[] = {
         .handler = _version_func,
     },
     {
-        .name = "led",
-        .description = "TODO. `led`",
-        .handler = _led_func,
+        .name = "leds",
+        .description = "print status, on/off leds. `led red[/green/blue] [on/off]`",
+        .handler = leds_func,
     },
 };
 
 static void _help_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs) {
-    (void)command_line;
-    (void)arg_shifts;
-
     if (nargs == 1) {
         state->write("help:\r\n");
         for (uint16_t i = 0; i < state->nums_command; ++i) {
@@ -61,14 +59,4 @@ static void _version_func(console_t* state, char* command_line, uint16_t arg_shi
     (void)arg_shifts;
 
     state->write(VERSION);
-}
-
-static void _led_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs) {
-    // TODO: impl for paltforms: stm32 and host
-    (void)state;
-    (void)command_line;
-    (void)nargs;
-    (void)arg_shifts;
-
-    state->write("led command success\r\n");
 }
