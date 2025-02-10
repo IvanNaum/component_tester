@@ -1,30 +1,33 @@
 # Host Project
 
-
-# STM32F1 Project (Example)
-
 ## Project Structure 
 
 - [src](src/) - source code, implementation common modules
+- [src/tests](src/tests) - unit-tests 
 
-## Building
+## Test mode:
 
-``` shell
-mkdir build
-cd build
-```
-
-For test mode:
 ```shell
 cmake -U DEBUG_MODE ..
 cmake --build .
+./host
 ```
 
-For debug mode:
+## Console mode:
+1. Build with `-D DEBUG_MODE=1`:
 ```shell
 cmake -D DEBUG_MODE=1 ..
 cmake --build .
 ```
+1. Start `host`
+   ```shell
+   ./host
+   ```
+1. Send command in new terminal (in `./host` directory):
+
+    ```shell
+    echo -n '<command>\n' > fifo_console_rx
+    ```
 
 ## VS Code Plugins
 

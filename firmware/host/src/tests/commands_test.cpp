@@ -10,7 +10,7 @@
 
 TEST_CASE("Help command", "[console][help_command]") {
     console_t console;
-    fifo_console_init(&console);
+    fifo_console_init(&console, false);
 
     int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
     int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
@@ -36,7 +36,7 @@ TEST_CASE("Help command", "[console][help_command]") {
 
 TEST_CASE("Help version command ", "[console][help_command]") {
     console_t console;
-    fifo_console_init(&console);
+    fifo_console_init(&console, false);
 
     int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
     int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
@@ -69,7 +69,7 @@ TEST_CASE("Help version command ", "[console][help_command]") {
 
 TEST_CASE("Version command", "[console][version_command]") {
     console_t console;
-    fifo_console_init(&console);
+    fifo_console_init(&console, false);
 
     int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
     int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
@@ -92,9 +92,9 @@ TEST_CASE("Version command", "[console][version_command]") {
     close(rx_fifo);
 }
 
-TEST_CASE("Leds command errors", "[console][leds_command]") {
+TEST_CASE("Leds command errors", "[console][leds_command][args_error]") {
     console_t console;
-    fifo_console_init(&console);
+    fifo_console_init(&console, false);
 
     int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
     int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
@@ -107,10 +107,8 @@ TEST_CASE("Leds command errors", "[console][leds_command]") {
     char result[CONSOLE_MAX_OUTPUT_SIZE];
     int res_len = read(rx_fifo, result, CONSOLE_MAX_OUTPUT_SIZE);
 
-    SECTION("VALID") {
-        REQUIRE(res_len > 0);
-        REQUIRE(strstr(result, "Arguments error"));
-    }
+    REQUIRE(res_len > 0);
+    REQUIRE(strstr(result, "Arguments error"));
 
     command = "leds a a a\r\n";
 
@@ -131,7 +129,7 @@ TEST_CASE("Leds command errors", "[console][leds_command]") {
 
 TEST_CASE("Leds command", "[console][leds_command]") {
     console_t console;
-    fifo_console_init(&console);
+    fifo_console_init(&console, false);
 
     int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
     int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
@@ -144,11 +142,9 @@ TEST_CASE("Leds command", "[console][leds_command]") {
     char result[CONSOLE_MAX_OUTPUT_SIZE];
     int res_len = read(rx_fifo, result, CONSOLE_MAX_OUTPUT_SIZE);
 
-    SECTION("VALID") {
-        REQUIRE(res_len > 0);
-        REQUIRE(strstr(result, "green"));
-        REQUIRE(strstr(result, "0"));
-    }
+    REQUIRE(res_len > 0);
+    REQUIRE(strstr(result, "green"));
+    REQUIRE(strstr(result, "0"));
 
     const char* command2 = "leds green on\r\n";
 

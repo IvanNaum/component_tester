@@ -1,13 +1,21 @@
+#define CATCH_CONFIG_RUNNER
+
 #include <iostream>
 
-#define CATCH_CONFIG_RUNNER
+#include "console.h"
+#include "leds.h"
+
+#ifdef DEBUG_MODE
+#include <unistd.h>
+
+#include "fifo_console.h"
+#else
+#endif  // DEBUG_MODE
 #include "catch.hpp"
 
 extern "C" {
 #include "log.h"
 }
-
-#include "leds.h"
 
 leds_t leds;
 
@@ -28,6 +36,17 @@ int main(int argc, char** argv) {
     log_warn("warn");
     log_error("error");
     log_fatal("fatal");
+
+    console_t console;
+    fifo_console_init(&console, true);
+
+    while (1) {
+        fifo_console_process(&console);
+        usleep(100);
+    }
+
+    fifo_console_deinit(&console);
+
     return 0;
 #else
     // Tests runner

@@ -17,7 +17,7 @@ extern "C" {
 
 #define CONSOLE_OVERFLOW_BUFFER_ERROR "Console buffer is overflow\r\n"
 #define CONSOLE_OVERFLOW_ARGS_ERROR "Console arguments is overflow\r\n"
-#define CONSOLE_UNKNOWN_COMMAND_ERROR "Command not found:\r\n"
+#define CONSOLE_UNKNOWN_COMMAND_ERROR "Command not found\r\n"
 
 struct console;
 

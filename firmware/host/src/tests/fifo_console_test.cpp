@@ -9,7 +9,7 @@
 
 TEST_CASE("Console init", "[console][version_command]") {
     console_t console;
-    fifo_console_init(&console);
+    fifo_console_init(&console, false);
 
     int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
     int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
@@ -33,7 +33,7 @@ TEST_CASE("Console init", "[console][version_command]") {
 
 TEST_CASE("Unknown command", "[console][unknown]") {
     console_t console;
-    fifo_console_init(&console);
+    fifo_console_init(&console, false);
 
     int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
     int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
@@ -57,7 +57,7 @@ TEST_CASE("Unknown command", "[console][unknown]") {
 
 TEST_CASE("Unblock console", "[console][version_command][unblock]") {
     console_t console;
-    fifo_console_init(&console);
+    fifo_console_init(&console, false);
 
     int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
     int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
@@ -85,7 +85,7 @@ TEST_CASE("Unblock console", "[console][version_command][unblock]") {
 
 TEST_CASE("Overflow input buffer", "[console][overflow]") {
     console_t console;
-    fifo_console_init(&console);
+    fifo_console_init(&console, false);
 
     int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
     int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
@@ -99,10 +99,8 @@ TEST_CASE("Overflow input buffer", "[console][overflow]") {
     char result[CONSOLE_MAX_OUTPUT_SIZE];
     int res_len = read(rx_fifo, result, CONSOLE_MAX_OUTPUT_SIZE);
 
-    SECTION("VALID") {
-        REQUIRE(res_len > 0);
-        REQUIRE(strstr(result, CONSOLE_OVERFLOW_BUFFER_ERROR));
-    }
+    REQUIRE(res_len > 0);
+    REQUIRE(strstr(result, CONSOLE_OVERFLOW_BUFFER_ERROR));
 
     const char* command2 = "version\r\n";
     write(tx_fifo, command2, strlen(command2));
@@ -122,7 +120,7 @@ TEST_CASE("Overflow input buffer", "[console][overflow]") {
 
 TEST_CASE("Overflow args buffer", "[console][overflow]") {
     console_t console;
-    fifo_console_init(&console);
+    fifo_console_init(&console, false);
 
     int tx_fifo = open(FIFO_CONSOLE_RX_FILENAME, O_WRONLY | O_NONBLOCK);
     int rx_fifo = open(FIFO_CONSOLE_TX_FILENAME, O_RDONLY | O_NONBLOCK);
