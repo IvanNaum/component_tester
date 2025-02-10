@@ -6,17 +6,35 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(
     ${PROJECT_NAME}
-    main.cpp
-    
-    # TODO: add executable files
+    ./main.cpp
+
+    ./src/leds_host.c
+    ./src/fifo_console.c
+
+    ./src/common/logc/log.c
+    ./src/common/console/console.c
+    ./src/common/commands/commands.c
+
+    ./src/tests/fifo_console_test.cpp
+    ./src/tests/commands_test.cpp
 )
 
 include_directories(
-    
-    # TODO: add include directories
+    ./src
+    ./src/common
+    ./src/common/logc/
+    ./src/common/leds/
+    ./src/common/catch/
+    ./src/common/console/
+    ./src/common/commands/
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Werror)
+
+if(DEBUG_MODE)
+    message("Debug mode")
+    add_definitions(-DDEBUG_MODE)
+endif()
 
 execute_process(COMMAND git describe --dirty --always
     OUTPUT_VARIABLE GIT_HEAD

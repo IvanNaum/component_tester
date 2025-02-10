@@ -10,3 +10,11 @@ repos:
   hooks:
   - id: clang-format
     types_or: [c++, c]
+    exclude: |
+        (?x)(
+          ^hardware/|
+          ^construction/|
+          ^firmware/common/logc/|
+          ^firmware/common/catch/
+        )
+        
