@@ -2,8 +2,8 @@
  * Console module
  */
 
-#ifndef _CONSOLE_H
-#define _CONSOLE_H
+#ifndef CONSOLE_H
+#define CONSOLE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,6 +14,10 @@ extern "C" {
 #define CONSOLE_MAX_COMMAND_SIZE (64)
 #define CONSOLE_MAX_OUTPUT_SIZE (256)
 #define CONSOLE_MAX_COMMAND_ARGS (6)
+
+#define CONSOLE_OVERFLOW_BUFFER_ERROR "Console buffer is overflow\r\n"
+#define CONSOLE_OVERFLOW_ARGS_ERROR "Console arguments is overflow\r\n"
+#define CONSOLE_UNKNOWN_COMMAND_ERROR "Command not found:\r\n"
 
 struct console;
 
@@ -34,16 +38,17 @@ typedef struct console {
     console_write_func_t write;
 } console_t;
 
-char console_tx_buffer[CONSOLE_MAX_OUTPUT_SIZE];
+extern char console_tx_buffer[CONSOLE_MAX_OUTPUT_SIZE];
 
 void console_init(
     console_t* state, command_t* commands, uint16_t nums_command, console_read_func_t read_func,
     console_write_func_t write_func
 );
 void console_process(console_t* state);
+command_t* console_find_command(console_t* state, char* command_name);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // _CONSOLE_H
+#endif  // CONSOLE_H

@@ -2,8 +2,8 @@
  * Commands module
  */
 
-#ifndef _COMMANDS_H
-#define _COMMANDS_H
+#ifndef COMMANDS_H
+#define COMMANDS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,10 +18,10 @@ typedef enum commands {
     NUM_COMMANDS  // Number of commands, should be the last element
 } commands_type_t;
 
-command_t commands_list[NUM_COMMANDS];
+extern command_t commands_list[NUM_COMMANDS];
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // _COMMANDS_H
+#endif  // COMMANDS_H

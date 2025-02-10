@@ -15,6 +15,7 @@ add_executable(
     ./src/common/commands/commands.c
 
     ./src/tests/fifo_console_test.cpp
+    ./src/tests/commands_test.cpp
 )
 
 include_directories(

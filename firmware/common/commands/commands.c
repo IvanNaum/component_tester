@@ -1,4 +1,6 @@
 
+#include "commands.h"
+
 #include <stdio.h>
 
 #include "console.h"
@@ -37,7 +39,15 @@ static void _help_func(console_t* state, char* command_line, uint16_t arg_shifts
             state->write(console_tx_buffer);
         }
     } else if (nargs == 2) {
-        // TODO: impl
+        command_t* command = console_find_command(state, &command_line[arg_shifts[1]]);
+        if (command == NULL) {
+            state->write("Unknown command\r\n");
+            return;
+        }
+        sprintf(console_tx_buffer, " > %s - %s\n\r", command->name, command->description);
+
+        state->write(console_tx_buffer);
+
     } else {
         state->write("Arguments error\r\n");
         return;

@@ -20,7 +20,6 @@ static void _write_func(char* buffer) {
 }
 
 void fifo_console_init(console_t* state) {
-    // TODO: refactoring tx and rx
     mkfifo(FIFO_CONSOLE_TX_FILENAME, 0777);
     mkfifo(FIFO_CONSOLE_RX_FILENAME, 0777);
 
