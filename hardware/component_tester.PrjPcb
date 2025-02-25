@@ -168,8 +168,24 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Parameter1]
+Name=Title2str
+Value=микроконтроллера STM32
+
+[Parameter2]
+Name=Title
+Value=Тестер компонентов на базе 
+
+[Parameter3]
 Name=decimal
-Value=....
+Value=ИУ4.11.03.03.25.06.62.14.001
+
+[Parameter4]
+Name=CheckedBy
+Value=Чистяков М. Г.
+
+[Parameter5]
+Name=Author
+Value=Наумов И. К.
 
 [Configuration1]
 Name=Sources
@@ -1253,22 +1269,16 @@ ComponentUpdate7=1
 ComponentIsDeviceSheet7=0
 ComponentLibIdentifierKind8=Library Name And Type
 ComponentLibraryIdentifier8=Schlib.SchLib
-ComponentDesignItemID8=VT PNP
-ComponentSymbolReference8=VT PNP
+ComponentDesignItemID8=XS_SWD
+ComponentSymbolReference8=XS_SWD
 ComponentUpdate8=1
 ComponentIsDeviceSheet8=0
 ComponentLibIdentifierKind9=Library Name And Type
 ComponentLibraryIdentifier9=Schlib.SchLib
-ComponentDesignItemID9=XS_SWD
-ComponentSymbolReference9=XS_SWD
+ComponentDesignItemID9=XS3
+ComponentSymbolReference9=XS3
 ComponentUpdate9=1
 ComponentIsDeviceSheet9=0
-ComponentLibIdentifierKind10=Library Name And Type
-ComponentLibraryIdentifier10=Schlib.SchLib
-ComponentDesignItemID10=XS3
-ComponentSymbolReference10=XS3
-ComponentUpdate10=1
-ComponentIsDeviceSheet10=0
 FullReplace=1
 UpdateDesignatorLock=1
 UpdatePartIDLock=1
@@ -1299,53 +1309,44 @@ ModelType1=PCBLIB
 ModelName1=C SMD 0603
 ModelUpdate1=1
 ModelType2=PCBLIB
-ModelName2=C_SMD_1206
+ModelName2=C SMD 1206
 ModelUpdate2=1
 ModelType3=PCBLIB
 ModelName3=C_THT_5mm
 ModelUpdate3=1
 ModelType4=PCBLIB
-ModelName4=KP313A
+ModelName4=LED [0603]
 ModelUpdate4=1
 ModelType5=PCBLIB
-ModelName5=LED [0603]
+ModelName5=PLS-3
 ModelUpdate5=1
 ModelType6=PCBLIB
-ModelName6=PLS-3
+ModelName6=PLS-4
 ModelUpdate6=1
 ModelType7=PCBLIB
-ModelName7=PLS-4
+ModelName7=R_SMD_1206
 ModelUpdate7=1
 ModelType8=PCBLIB
-ModelName8=R_SMD_1206
+ModelName8=R_THT_10.8mm
 ModelUpdate8=1
 ModelType9=PCBLIB
-ModelName9=R_THT_10.8mm
+ModelName9=R_THT_6mm
 ModelUpdate9=1
 ModelType10=PCBLIB
-ModelName10=R_THT_6mm
+ModelName10=SOP127P600X175-14N
 ModelUpdate10=1
 ModelType11=PCBLIB
-ModelName11=SOP127P600X175-14N
+ModelName11=SOT230P695X180-4N
 ModelUpdate11=1
 ModelType12=PCBLIB
-ModelName12=SOT230P695X180-4N
+ModelName12=STM32 [LQFP-48]
 ModelUpdate12=1
 ModelType13=PCBLIB
-ModelName13=STM32 [LQFP-48]
+ModelName13=USB mini B 10033526-N3212LF
 ModelUpdate13=1
 ModelType14=PCBLIB
-ModelName14=TO-92_CBE
+ModelName14=XTAL_SMD
 ModelUpdate14=1
-ModelType15=PCBLIB
-ModelName15=TO-92_EBC
-ModelUpdate15=1
-ModelType16=PCBLIB
-ModelName16=USB mini B 10033526-N3212LF
-ModelUpdate16=1
-ModelType17=PCBLIB
-ModelName17=XTAL_SMD
-ModelUpdate17=1
 
 [DatabaseUpdateOptions]
 SelectedOnly=0
