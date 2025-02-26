@@ -168,24 +168,24 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Parameter1]
-Name=Title2str
-Value=микроконтроллера STM32F103C8T6
+Name=Author
+Value=Наумов И. К.
 
 [Parameter2]
-Name=Title
-Value=Тестер компонентов на базе
+Name=CheckedBy
+Value=Чистяков М. Г.
 
 [Parameter3]
 Name=decimal
 Value=ИУ4.11.03.03.25.06.62.14.001
 
 [Parameter4]
-Name=CheckedBy
-Value=Чистяков М. Г.
+Name=Title
+Value=Тестер компонентов на базе
 
 [Parameter5]
-Name=Author
-Value=Наумов И. К.
+Name=Title2str
+Value=микроконтроллера STM32F103C8T6
 
 [Configuration1]
 Name=Sources
