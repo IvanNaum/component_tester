@@ -148,7 +148,7 @@ ClassGenCCAutoRoomEnabled=0
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=
+DocumentUniqueId=WXFRARIA
 
 [Document7]
 DocumentPath=..\..\..\..\Public\Documents\Altium\Library\Schlib.SchLib
@@ -183,6 +183,10 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
+
+[GeneratedDocument1]
+DocumentPath=Project Outputs for component_tester\Design Rule Check - PCB.html
+DItemRevisionGUID=
 
 [Parameter1]
 Name=Author
@@ -1332,38 +1336,41 @@ ModelType3=PCBLIB
 ModelName3=C_THT_5mm
 ModelUpdate3=1
 ModelType4=PCBLIB
-ModelName4=LED [0603]
+ModelName4=Crystal Resonator
 ModelUpdate4=1
 ModelType5=PCBLIB
-ModelName5=PLS-3
+ModelName5=LED [0603]
 ModelUpdate5=1
 ModelType6=PCBLIB
-ModelName6=PLS-4
+ModelName6=PLS-3
 ModelUpdate6=1
 ModelType7=PCBLIB
-ModelName7=R_SMD_1206
+ModelName7=PLS-4
 ModelUpdate7=1
 ModelType8=PCBLIB
-ModelName8=R_THT_10.8mm
+ModelName8=R_SMD_1206
 ModelUpdate8=1
 ModelType9=PCBLIB
-ModelName9=R_THT_6mm
+ModelName9=R_THT_10.8mm
 ModelUpdate9=1
 ModelType10=PCBLIB
-ModelName10=SOP127P600X175-14N
+ModelName10=R_THT_6mm
 ModelUpdate10=1
 ModelType11=PCBLIB
-ModelName11=SOT230P695X180-4N
+ModelName11=SOP127P600X175-14N
 ModelUpdate11=1
 ModelType12=PCBLIB
-ModelName12=STM32 [LQFP-48]
+ModelName12=SOT230P695X180-4N
 ModelUpdate12=1
 ModelType13=PCBLIB
-ModelName13=USB mini B 10033526-N3212LF
+ModelName13=STM32 [LQFP-48]
 ModelUpdate13=1
 ModelType14=PCBLIB
-ModelName14=XTAL_SMD
+ModelName14=USB mini B 10033526-N3212LF
 ModelUpdate14=1
+ModelType15=PCBLIB
+ModelName15=XTAL_SMD
+ModelUpdate15=1
 
 [DatabaseUpdateOptions]
 SelectedOnly=0
