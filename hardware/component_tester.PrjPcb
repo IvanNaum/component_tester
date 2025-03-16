@@ -100,13 +100,13 @@ GenerateClassCluster=0
 DocumentUniqueId=MJXBENSY
 
 [Document4]
-DocumentPath=..\..\..\..\Public\Documents\Altium\Semester_Project\Altium\Stend.SchDoc
+DocumentPath=Stend.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
 AnnotateScope=All
-AnnotateOrder=3
+AnnotateOrder=-1
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
@@ -117,6 +117,23 @@ GenerateClassCluster=0
 DocumentUniqueId=FMTPXISX
 
 [Document5]
+DocumentPath=PP.PCBDwf
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=0
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=JPRKYCUE
+
+[Document6]
 DocumentPath=PCB.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -133,7 +150,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=YIRWEFCS
 
-[Document6]
+[Document7]
 DocumentPath=..\..\..\..\Public\Documents\Altium\Library\PcbLib.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -150,7 +167,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=WXFRARIA
 
-[Document7]
+[Document8]
 DocumentPath=..\..\..\..\Public\Documents\Altium\Library\Schlib.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -167,7 +184,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=AXWFJSXP
 
-[Document8]
+[Document9]
 DocumentPath=Job.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -189,24 +206,28 @@ DocumentPath=Project Outputs for component_tester\Design Rule Check - PCB.html
 DItemRevisionGUID=
 
 [Parameter1]
-Name=Author
-Value=Наумов И. К.
-
-[Parameter2]
-Name=CheckedBy
-Value=Чистяков М. Г.
-
-[Parameter3]
-Name=decimal
+Name=FirstReferrence
 Value=ИУ4.11.03.03.25.06.62.14.001
 
-[Parameter4]
+[Parameter2]
+Name=Title2str
+Value=микроконтроллера STM32F103C8T6
+
+[Parameter3]
 Name=Title
 Value=Тестер компонентов на базе
 
+[Parameter4]
+Name=decimal
+Value=ИУ4.11.03.03.25.06.62.14.001
+
 [Parameter5]
-Name=Title2str
-Value=микроконтроллера STM32F103C8T6
+Name=CheckedBy
+Value=Чистяков М. Г.
+
+[Parameter6]
+Name=Author
+Value=Наумов И. К.
 
 [Configuration1]
 Name=Sources
