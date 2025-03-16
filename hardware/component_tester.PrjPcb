@@ -205,6 +205,10 @@ DocumentUniqueId=
 DocumentPath=Project Outputs for component_tester\Design Rule Check - PCB.html
 DItemRevisionGUID=
 
+[GeneratedDocument2]
+DocumentPath=Project Outputs for component_tester\Footprint Comparison - PCB.html
+DItemRevisionGUID=
+
 [Parameter1]
 Name=FirstReferrence
 Value=ИУ4.11.03.03.25.06.62.14.001
