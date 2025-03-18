@@ -19,8 +19,8 @@
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef __MAIN_H
+#define __MAIN_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,6 +68,14 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LED_Pin LL_GPIO_PIN_13
 #define LED_GPIO_Port GPIOC
+#define LED_Transistor_Pin LL_GPIO_PIN_12
+#define LED_Transistor_GPIO_Port GPIOB
+#define LED_Diode_Pin LL_GPIO_PIN_13
+#define LED_Diode_GPIO_Port GPIOB
+#define LED_Capasitor_Pin LL_GPIO_PIN_14
+#define LED_Capasitor_GPIO_Port GPIOB
+#define LED_Resistor_Pin LL_GPIO_PIN_15
+#define LED_Resistor_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
@@ -77,4 +85,4 @@ void Error_Handler(void);
 }
 #endif
 
-#endif  // MAIN_H
+#endif /* __MAIN_H */
