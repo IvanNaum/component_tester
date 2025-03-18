@@ -4,6 +4,7 @@
 
 ## Project Structure 
 
+- [docs](docs/) - pdf documets/drafts
 - [simulation](simulation/) - modeling of processes
 - [software](software/) - common modules, tests, sdk and mcu software
 - [hardware](hardware/) - schematics, PCB files
