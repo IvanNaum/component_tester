@@ -1,4 +1,4 @@
-# Project Template
+# Component tester
 
 ## Naumov I
 
@@ -10,7 +10,7 @@
 - [hardware](hardware/) - schematics, PCB files
 - [construction](construction/) - 3D models, CAD files
 
-## Codestylea
+## Codestyles
 
 1. Install pre-commit
 ```shell
