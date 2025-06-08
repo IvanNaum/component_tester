@@ -6,6 +6,6 @@ PointerAlignment: Left
 ColumnLimit: 120
 AlignAfterOpenBracket: BlockIndent
 BitFieldColonSpacing: After
-AllowShortLoopsOnASingleLine: true
-AllowShortBlocksOnASingleLine: true
-
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: Never
