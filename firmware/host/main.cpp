@@ -17,13 +17,13 @@ extern "C" {
 #include "log.h"
 }
 
-leds_t leds;
+leds_t leds_status;
 
 #define LOG_DEFAULT_LEVEL LOG_DEBUG
 
 int main(int argc, char** argv) {
     log_set_level(LOG_DEFAULT_LEVEL);
-    // leds_init(&leds);
+    leds_init(&leds_status);
 
 #ifdef DEBUG_MODE
     // Arbitrary code for debug modules

@@ -30,11 +30,12 @@ void console_process(console_t* state) {
     if (0 == count) return;
 
     for (uint16_t i = 0; i < count; i++) {
+        if (rx_line[i] == '\n' && command_line_len == 0) { continue; }
         command_line[command_line_len++] = rx_line[i];
-        if (rx_line[i] == ' ' || rx_line[i] == '\r') {
+        if (rx_line[i] == ' ') {
             command_line[command_line_len - 1] = '\0';
             last_space = true;
-        } else if (rx_line[i] == '\n' && command_line_len > 1) {
+        } else if ((rx_line[i] == '\n' || rx_line[i] == '\r') && command_line_len > 1) {
             command_line[command_line_len - 1] = '\0';
             command_t* command = console_find_command(state, &command_line[arg_shift[0]]);
             if (command == NULL) {
