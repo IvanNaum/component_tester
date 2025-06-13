@@ -1,15 +1,15 @@
-#include <stdio.h>
+#include <stdint.h>
 
 #include "commands.h"
 #include "console.h"
 #include "leds.h"
-#include "string.h"
 
 extern leds_t leds_status;
 
 void leds_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs) {
     if (nargs == 1) {
         state->write(state->commands[COMMAND_LED].description);
+        state->write("\r\n");
     } else if (nargs == 2) {
         state->write("Arguments error\r\n");
     } else if (nargs == 3) {
@@ -45,22 +45,5 @@ void leds_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint
         state->write(console_tx_buffer);
     } else {
         state->write("Too many arguments\r\n");
-        state->write("Too many arguments\r\n");
     }
-}
-
-void leds_init(leds_t* state) {
-    for (int i = 0; i < NUM_LED; ++i) { state->modes[i] = LED_OFF; }
-}
-bool leds_on(leds_t* state, leds_type_t led_type) {
-    state->modes[led_type] = true;
-    return true;
-}
-bool leds_off(leds_t* state, leds_type_t led_type) {
-    state->modes[led_type] = false;
-    return true;
-}
-bool leds_toggle(leds_t* state, leds_type_t led_type) {
-    state->modes[led_type] = !state->modes[led_type];
-    return true;
 }

@@ -23,6 +23,7 @@
 #include "main.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,7 +59,7 @@
 /* External variables --------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd_USB_FS;
 /* USER CODE BEGIN EV */
-
+extern bool run_console_flag;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -195,6 +196,22 @@ void USB_LP_CAN1_RX0_IRQHandler(void) {
     /* USER CODE BEGIN USB_LP_CAN1_RX0_IRQn 1 */
 
     /* USER CODE END USB_LP_CAN1_RX0_IRQn 1 */
+}
+
+/**
+ * @brief This function handles TIM3 global interrupt.
+ */
+void TIM3_IRQHandler(void) {
+    /* USER CODE BEGIN TIM3_IRQn 0 */
+    if (LL_TIM_IsActiveFlag_UPDATE(TIM3)) {
+        run_console_flag = 1;
+        LL_TIM_ClearFlag_UPDATE(TIM3);
+    }
+
+    /* USER CODE END TIM3_IRQn 0 */
+    /* USER CODE BEGIN TIM3_IRQn 1 */
+
+    /* USER CODE END TIM3_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

@@ -22,7 +22,7 @@ extern "C" {
 struct console;
 
 typedef uint16_t (*console_read_func_t)(char* buffer);
-typedef void (*console_write_func_t)(char* buffer);
+typedef void (*console_write_func_t)(const char* buffer);
 typedef void (*command_handler_t)(struct console* state, char* command_line, uint16_t* arg_shifts, uint8_t nargs);
 
 typedef struct console_command {

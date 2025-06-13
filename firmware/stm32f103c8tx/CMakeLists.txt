@@ -48,6 +48,11 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ./Core/Src/leds.c
+    ./Core/Src/leds_command.c
+    ./Core/Src/vcom_console.c
+
+    ./common/console/console.c
+    ./common/commands/commands.c
 
     # LL
     ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_gpio.c
@@ -58,6 +63,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     common
     common/leds
+    common/console
+    common/commands
 )
 
 # Add project symbols (macros)

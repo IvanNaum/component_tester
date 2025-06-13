@@ -27,6 +27,8 @@
 #include "leds.h"
 #include "stm32f1xx_ll_gpio.h"
 #include "stm32f1xx_ll_utils.h"
+#include "usbd_cdc_if.h"
+#include "vcom_console.h"
 
 /* USER CODE END Includes */
 
@@ -48,19 +50,24 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+leds_t leds_status;
+console_t console_status;
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_ADC1_Init(void);
+static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-leds_t leds;
+extern bool run_console_flag;
+
 /* USER CODE END 0 */
 
 /**
@@ -91,27 +98,27 @@ int main(void) {
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
     MX_USB_DEVICE_Init();
+    MX_ADC1_Init();
+    MX_TIM3_Init();
     /* USER CODE BEGIN 2 */
-    // leds_init(&leds);
 
+    leds_init(&leds_status);
+    vcom_console_init(&console_status);
+
+    LL_TIM_EnableIT_UPDATE(TIM3);
+    LL_TIM_EnableCounter(TIM3);
     /* USER CODE END 2 */
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1) {
+        if (run_console_flag) {
+            vcom_console_process(&console_status);
+            run_console_flag = 0;
+        }
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
-        leds_toggle(&leds, LED_RED);
-        LL_mDelay(500);
-        leds_toggle(&leds, LED_RESISTOR);
-        LL_mDelay(500);
-        leds_toggle(&leds, LED_CAPACITOR);
-        LL_mDelay(500);
-        leds_toggle(&leds, LED_DIODE);
-        LL_mDelay(500);
-        leds_toggle(&leds, LED_TRANSISTOR);
-        LL_mDelay(500);
     }
     /* USER CODE END 3 */
 }
@@ -143,7 +150,100 @@ void SystemClock_Config(void) {
 
     /* Update the time base */
     if (HAL_InitTick(TICK_INT_PRIORITY) != HAL_OK) { Error_Handler(); }
+    LL_RCC_SetADCClockSource(LL_RCC_ADC_CLKSRC_PCLK2_DIV_4);
     LL_RCC_SetUSBClockSource(LL_RCC_USB_CLKSOURCE_PLL);
+}
+
+/**
+ * @brief ADC1 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_ADC1_Init(void) {
+    /* USER CODE BEGIN ADC1_Init 0 */
+
+    /* USER CODE END ADC1_Init 0 */
+
+    LL_ADC_InitTypeDef ADC_InitStruct = {0};
+    LL_ADC_CommonInitTypeDef ADC_CommonInitStruct = {0};
+    LL_ADC_REG_InitTypeDef ADC_REG_InitStruct = {0};
+
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    /* Peripheral clock enable */
+    LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_ADC1);
+
+    LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_GPIOA);
+    /**ADC1 GPIO Configuration
+    PA0-WKUP   ------> ADC1_IN0
+    PA1   ------> ADC1_IN1
+    PA2   ------> ADC1_IN2
+    */
+    GPIO_InitStruct.Pin = LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
+    LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    /* USER CODE BEGIN ADC1_Init 1 */
+
+    /* USER CODE END ADC1_Init 1 */
+
+    /** Common config
+     */
+    ADC_InitStruct.DataAlignment = LL_ADC_DATA_ALIGN_RIGHT;
+    ADC_InitStruct.SequencersScanMode = LL_ADC_SEQ_SCAN_DISABLE;
+    LL_ADC_Init(ADC1, &ADC_InitStruct);
+    ADC_CommonInitStruct.Multimode = LL_ADC_MULTI_INDEPENDENT;
+    LL_ADC_CommonInit(__LL_ADC_COMMON_INSTANCE(ADC1), &ADC_CommonInitStruct);
+    ADC_REG_InitStruct.TriggerSource = LL_ADC_REG_TRIG_SOFTWARE;
+    ADC_REG_InitStruct.SequencerLength = LL_ADC_REG_SEQ_SCAN_DISABLE;
+    ADC_REG_InitStruct.SequencerDiscont = LL_ADC_REG_SEQ_DISCONT_DISABLE;
+    ADC_REG_InitStruct.ContinuousMode = LL_ADC_REG_CONV_SINGLE;
+    ADC_REG_InitStruct.DMATransfer = LL_ADC_REG_DMA_TRANSFER_NONE;
+    LL_ADC_REG_Init(ADC1, &ADC_REG_InitStruct);
+
+    /** Configure Regular Channel
+     */
+    LL_ADC_REG_SetSequencerRanks(ADC1, LL_ADC_REG_RANK_1, LL_ADC_CHANNEL_0);
+    LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_0, LL_ADC_SAMPLINGTIME_1CYCLE_5);
+    /* USER CODE BEGIN ADC1_Init 2 */
+
+    /* USER CODE END ADC1_Init 2 */
+}
+
+/**
+ * @brief TIM3 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_TIM3_Init(void) {
+    /* USER CODE BEGIN TIM3_Init 0 */
+
+    /* USER CODE END TIM3_Init 0 */
+
+    LL_TIM_InitTypeDef TIM_InitStruct = {0};
+
+    /* Peripheral clock enable */
+    LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM3);
+
+    /* TIM3 interrupt Init */
+    NVIC_SetPriority(TIM3_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
+    NVIC_EnableIRQ(TIM3_IRQn);
+
+    /* USER CODE BEGIN TIM3_Init 1 */
+
+    /* USER CODE END TIM3_Init 1 */
+    TIM_InitStruct.Prescaler = 47999;
+    TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_UP;
+    TIM_InitStruct.Autoreload = 99;
+    TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;
+    LL_TIM_Init(TIM3, &TIM_InitStruct);
+    LL_TIM_DisableARRPreload(TIM3);
+    LL_TIM_SetClockSource(TIM3, LL_TIM_CLOCKSOURCE_INTERNAL);
+    LL_TIM_SetTriggerOutput(TIM3, LL_TIM_TRGO_RESET);
+    LL_TIM_DisableMasterSlaveMode(TIM3);
+    /* USER CODE BEGIN TIM3_Init 2 */
+
+    /* USER CODE END TIM3_Init 2 */
 }
 
 /**
@@ -166,14 +266,12 @@ static void MX_GPIO_Init(void) {
     LL_GPIO_ResetOutputPin(LED_GPIO_Port, LED_Pin);
 
     /**/
-    LL_GPIO_ResetOutputPin(
-        GPIOA, PIN_A_0Ohm_Pin | PIN_A_680Ohms_Pin | PIN_A_470kOhms_Pin | PIN_B_0Ohm_Pin | PIN_B_680Ohms_Pin
-    );
+    LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_3 | LL_GPIO_PIN_4 | LL_GPIO_PIN_5 | LL_GPIO_PIN_6 | LL_GPIO_PIN_7);
 
     /**/
     LL_GPIO_ResetOutputPin(
-        GPIOB, PIN_B_470kOhms_Pin | PIN_C_0Ohm_Pin | PIN_C_680Ohms_Pin | PIN_C_470kOhms_Pin | LED_Transistor_Pin |
-                   LED_Diode_Pin | LED_Capacitor_Pin | LED_Resistor_Pin
+        GPIOB, LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2 | LL_GPIO_PIN_10 | LED_Transistor_Pin | LED_Diode_Pin |
+                   LED_Capacitor_Pin | LED_Resistor_Pin
     );
 
     /**/
@@ -184,20 +282,15 @@ static void MX_GPIO_Init(void) {
     LL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
 
     /**/
-    GPIO_InitStruct.Pin = LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2;
-    GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
-    LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-    /**/
-    GPIO_InitStruct.Pin = PIN_A_0Ohm_Pin | PIN_A_680Ohms_Pin | PIN_A_470kOhms_Pin | PIN_B_0Ohm_Pin | PIN_B_680Ohms_Pin;
+    GPIO_InitStruct.Pin = LL_GPIO_PIN_3 | LL_GPIO_PIN_4 | LL_GPIO_PIN_5 | LL_GPIO_PIN_6 | LL_GPIO_PIN_7;
     GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
     GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
     LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
     /**/
-    GPIO_InitStruct.Pin = PIN_B_470kOhms_Pin | PIN_C_0Ohm_Pin | PIN_C_680Ohms_Pin | PIN_C_470kOhms_Pin |
-                          LED_Transistor_Pin | LED_Diode_Pin | LED_Capacitor_Pin | LED_Resistor_Pin;
+    GPIO_InitStruct.Pin = LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2 | LL_GPIO_PIN_10 | LED_Transistor_Pin |
+                          LED_Diode_Pin | LED_Capacitor_Pin | LED_Resistor_Pin;
     GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
     GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;

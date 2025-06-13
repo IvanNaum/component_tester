@@ -13,7 +13,7 @@ static int _tx_fifo = -1;
 static bool _cout = true;
 
 static uint16_t _read_func(char* buffer) { return read(_rx_fifo, buffer, CONSOLE_MAX_COMMAND_SIZE); }
-static void _write_func(char* buffer) {
+static void _write_func(const char* buffer) {
     if (_tx_fifo < 0) return;
 
     write(_tx_fifo, buffer, strlen(buffer));
