@@ -290,11 +290,6 @@ static void MX_GPIO_Init(void) {
     LL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
 
     /**/
-    GPIO_InitStruct.Pin = LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2;
-    GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
-    LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-    /**/
     GPIO_InitStruct.Pin = PIN_A_0Ohm_Pin | PIN_A_680Ohms_Pin | PIN_A_470kOhms_Pin | PIN_B_0Ohm_Pin | PIN_B_680Ohms_Pin;
     GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
     GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
