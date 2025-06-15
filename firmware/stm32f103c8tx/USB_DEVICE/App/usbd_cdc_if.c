@@ -34,6 +34,7 @@
 extern uint8_t vcom_console_ring_buffer[];
 extern uint16_t vcom_console_ring_head;
 extern uint16_t vcom_console_ring_tail;
+
 /* USER CODE END PV */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
@@ -257,8 +258,9 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t* Len) {
         new_head = (vcom_console_ring_head + 1) % (CONSOLE_MAX_COMMAND_SIZE * 2);
 
         // Проверка переполнения (если буфер полон - перестаём писать)
-        if (new_head == vcom_console_ring_tail)
+        if (new_head == vcom_console_ring_tail) {
             break;
+        }
 
         vcom_console_ring_buffer[vcom_console_ring_head] = Buf[i];
         vcom_console_ring_head = new_head;

@@ -69,7 +69,7 @@ static void MX_TIM3_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-extern bool run_console_flag;
+volatile bool run_console_flag = 0;
 
 /* USER CODE END 0 */
 
@@ -116,7 +116,7 @@ int main(void) {
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
-    bool run_tester = true;
+    // bool run_tester = true;
     uint32_t last_toggle = 0;
     while (1) {
         if (run_console_flag) {
@@ -126,16 +126,19 @@ int main(void) {
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
-        if (get_tick_count() - last_toggle >= 1000) {
+        if (get_tick_count() - last_toggle >= 500) {
             leds_toggle(&leds_status, LED_RED);
             last_toggle = get_tick_count();
         }
+
+#if 0
         if (tick_counter > 1000 && run_tester) {
             component_t component = tester_test_resistor(&tester_status);
             component_to_str(&component, console_tx_buffer);
             console_status.write(console_tx_buffer);
             run_tester = false;
         }
+#endif
     }
     /* USER CODE END 3 */
 }
