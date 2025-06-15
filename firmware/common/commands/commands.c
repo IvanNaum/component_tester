@@ -10,6 +10,7 @@ static void _help_func(console_t* state, char* command_line, uint16_t arg_shifts
 static void _version_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs);
 
 extern void leds_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs);
+extern void tester_test_command_handler(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs);
 
 command_t commands_list[] = {
     {
@@ -26,6 +27,11 @@ command_t commands_list[] = {
         .name = "leds",
         .description = "print status, on/off leds. `led red[/green/blue] [on/off]`",
         .handler = leds_func,
+    },
+    {
+        .name = "test",
+        .description = "test component. `test tran[/diode/res/cap]`",
+        .handler = tester_test_command_handler,
     },
 };
 

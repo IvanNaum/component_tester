@@ -29,9 +29,10 @@ typedef struct component {
             char emitter;
             char collector;
         } transistor;
-    }
+    };
 } component_t;
 
 bool component_init(component_t* state);
+void component_to_str(component_t* component, char* buffer);
 
 #endif  // COMPONENT_H

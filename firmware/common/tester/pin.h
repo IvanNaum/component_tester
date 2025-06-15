@@ -25,7 +25,7 @@ typedef enum pin_type {
     NUMS_PIN_TYPE  // Number of modes, should be the last element
 } pin_type_t;
 
-typedef bool (*pin_get_raw_adc)(struct pin* state);
+typedef uint16_t (*pin_get_raw_adc)(struct pin* state);
 typedef bool (*pin_set_mode_func)(struct pin* state, pin_type_t pin_type, pin_mode_t pin_mode);
 
 typedef struct pin {

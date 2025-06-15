@@ -15,6 +15,7 @@ typedef enum commands {
     COMMAND_HELP,
     COMMAND_VERSION,
     COMMAND_LED,
+    COMMAND_TEST,
     NUM_COMMANDS  // Number of commands, should be the last element
 } commands_type_t;
 

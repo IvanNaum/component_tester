@@ -57,7 +57,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ./common/tester/pin.c
     ./common/tester/tester.c
     ./common/tester/component.c
-    # ./common/tester/tester_commands.c
+    ./common/tester/tester_commands.c
 
 
     # LL

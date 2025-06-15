@@ -11,6 +11,7 @@ typedef struct tester {
 } tester_t;
 
 bool tester_init(tester_t* state, pin_t pin_A, pin_t pin_B, pin_t pin_C);
+component_t tester_test(tester_t* state);
 component_t tester_test_transistor(tester_t* state);
 component_t tester_test_diode(tester_t* state);
 component_t tester_test_resistor(tester_t* state);
