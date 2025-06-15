@@ -1,5 +1,5 @@
-#ifndef DELAY_H
-#define DELAY_H
+#ifndef TIME_UTILS_H
+#define TIME_UTILS_H
 
 #include <stdint.h>
 
@@ -7,4 +7,4 @@ void delay_ms(uint32_t ms);
 
 uint32_t get_tick_count(void);
 
-#endif  // DELAY_H
+#endif  // TIME_UTILS_H

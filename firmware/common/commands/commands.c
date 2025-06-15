@@ -13,26 +13,30 @@ extern void leds_func(console_t* state, char* command_line, uint16_t arg_shifts[
 extern void tester_test_command_handler(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs);
 
 command_t commands_list[] = {
-    {
-        .name = "help",
-        .description = "print all commands and its description or one. `help [command_name]`",
-        .handler = _help_func,
-    },
-    {
-        .name = "version",
-        .description = "print version of software. `version`",
-        .handler = _version_func,
-    },
-    {
-        .name = "leds",
-        .description = "print status, on/off leds. `led red[/green/blue] [on/off]`",
-        .handler = leds_func,
-    },
-    {
-        .name = "test",
-        .description = "test component. `test tran[/diode/res/cap]`",
-        .handler = tester_test_command_handler,
-    },
+    [COMMAND_HELP] =
+        {
+            .name = "help",
+            .description = "print all commands and its description or one. `help [command_name]`",
+            .handler = _help_func,
+        },
+    [COMMAND_VERSION] =
+        {
+            .name = "version",
+            .description = "print version of software. `version`",
+            .handler = _version_func,
+        },
+    [COMMAND_LED] =
+        {
+            .name = "leds",
+            .description = "print status, on/off leds. `led red[/green/blue] [on/off]`",
+            .handler = leds_func,
+        },
+    [COMMAND_TEST] =
+        {
+            .name = "test",
+            .description = "test component. `test tran[/diode/res/cap]`",
+            .handler = tester_test_command_handler,
+        },
 };
 
 static void _help_func(console_t* state, char* command_line, uint16_t arg_shifts[], uint8_t nargs) {
