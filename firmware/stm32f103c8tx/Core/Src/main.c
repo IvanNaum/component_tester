@@ -117,6 +117,7 @@ int main(void) {
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     bool run_tester = true;
+    uint32_t last_toggle = 0;
     while (1) {
         if (run_console_flag) {
             vcom_console_process(&console_status);
@@ -125,6 +126,10 @@ int main(void) {
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
+        if (get_tick_count() - last_toggle >= 1000) {
+            leds_toggle(&leds_status, LED_RED);
+            last_toggle = get_tick_count();
+        }
         if (tick_counter > 1000 && run_tester) {
             component_t component = tester_test_resistor(&tester_status);
             component_to_str(&component, console_tx_buffer);

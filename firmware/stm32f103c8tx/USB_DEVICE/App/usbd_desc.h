@@ -18,8 +18,8 @@
  */
 /* USER CODE END Header */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USBD_DESC__C__
-#define __USBD_DESC__C__
+#ifndef USBD_DESC_H
+#define USBD_DESC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -139,4 +139,4 @@ extern USBD_DescriptorsTypeDef FS_Desc;
 }
 #endif
 
-#endif /* __USBD_DESC__C__ */
+#endif  // USBD_DESC_H

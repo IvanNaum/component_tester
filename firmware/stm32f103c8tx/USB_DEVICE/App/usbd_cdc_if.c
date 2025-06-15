@@ -22,7 +22,7 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-
+#include "vcom_console.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -31,7 +31,9 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+extern uint8_t vcom_console_ring_buffer[];
+extern uint16_t vcom_console_ring_head;
+extern uint16_t vcom_console_ring_tail;
 /* USER CODE END PV */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
@@ -248,6 +250,20 @@ static int8_t CDC_Control_FS(uint8_t cmd, uint8_t* pbuf, uint16_t length) {
  */
 static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t* Len) {
     /* USER CODE BEGIN 6 */
+    uint32_t len = *Len;
+    uint16_t new_head;
+
+    for (uint32_t i = 0; i < len; i++) {
+        new_head = (vcom_console_ring_head + 1) % (CONSOLE_MAX_COMMAND_SIZE * 2);
+
+        // Проверка переполнения (если буфер полон - перестаём писать)
+        if (new_head == vcom_console_ring_tail)
+            break;
+
+        vcom_console_ring_buffer[vcom_console_ring_head] = Buf[i];
+        vcom_console_ring_head = new_head;
+    }
+
     USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
     USBD_CDC_ReceivePacket(&hUsbDeviceFS);
     return (USBD_OK);
