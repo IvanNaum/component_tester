@@ -54,6 +54,7 @@
 leds_t leds_status;
 console_t console_status;
 tester_t tester_status;
+uint32_t tick_counter;
 
 /* USER CODE END PV */
 
@@ -115,6 +116,7 @@ int main(void) {
 
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
+    bool run_tester = true;
     while (1) {
         if (run_console_flag) {
             vcom_console_process(&console_status);
@@ -123,6 +125,12 @@ int main(void) {
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
+        if (tick_counter > 1000 && run_tester) {
+            component_t component = tester_test_resistor(&tester_status);
+            component_to_str(&component, console_tx_buffer);
+            console_status.write(console_tx_buffer);
+            run_tester = false;
+        }
     }
     /* USER CODE END 3 */
 }
@@ -189,7 +197,7 @@ static void MX_ADC1_Init(void) {
     PA1   ------> ADC1_IN1
     PA2   ------> ADC1_IN2
     */
-    GPIO_InitStruct.Pin = LL_GPIO_PIN_0 | LL_GPIO_PIN_1 | LL_GPIO_PIN_2;
+    GPIO_InitStruct.Pin = PIN_A_ADC_Pin | PIN_B_ADC_Pin | PIN_C_ADC_Pin;
     GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
     LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
@@ -200,12 +208,12 @@ static void MX_ADC1_Init(void) {
     /** Common config
      */
     ADC_InitStruct.DataAlignment = LL_ADC_DATA_ALIGN_RIGHT;
-    ADC_InitStruct.SequencersScanMode = LL_ADC_SEQ_SCAN_DISABLE;
+    ADC_InitStruct.SequencersScanMode = LL_ADC_SEQ_SCAN_ENABLE;
     LL_ADC_Init(ADC1, &ADC_InitStruct);
     ADC_CommonInitStruct.Multimode = LL_ADC_MULTI_INDEPENDENT;
     LL_ADC_CommonInit(__LL_ADC_COMMON_INSTANCE(ADC1), &ADC_CommonInitStruct);
     ADC_REG_InitStruct.TriggerSource = LL_ADC_REG_TRIG_SOFTWARE;
-    ADC_REG_InitStruct.SequencerLength = LL_ADC_REG_SEQ_SCAN_DISABLE;
+    ADC_REG_InitStruct.SequencerLength = LL_ADC_REG_SEQ_SCAN_ENABLE_3RANKS;
     ADC_REG_InitStruct.SequencerDiscont = LL_ADC_REG_SEQ_DISCONT_DISABLE;
     ADC_REG_InitStruct.ContinuousMode = LL_ADC_REG_CONV_SINGLE;
     ADC_REG_InitStruct.DMATransfer = LL_ADC_REG_DMA_TRANSFER_NONE;
@@ -215,6 +223,16 @@ static void MX_ADC1_Init(void) {
      */
     LL_ADC_REG_SetSequencerRanks(ADC1, LL_ADC_REG_RANK_1, LL_ADC_CHANNEL_0);
     LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_0, LL_ADC_SAMPLINGTIME_1CYCLE_5);
+
+    /** Configure Regular Channel
+     */
+    LL_ADC_REG_SetSequencerRanks(ADC1, LL_ADC_REG_RANK_2, LL_ADC_CHANNEL_1);
+    LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_1, LL_ADC_SAMPLINGTIME_1CYCLE_5);
+
+    /** Configure Regular Channel
+     */
+    LL_ADC_REG_SetSequencerRanks(ADC1, LL_ADC_REG_RANK_3, LL_ADC_CHANNEL_2);
+    LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_2, LL_ADC_SAMPLINGTIME_1CYCLE_5);
     /* USER CODE BEGIN ADC1_Init 2 */
 
     /* USER CODE END ADC1_Init 2 */
@@ -236,7 +254,7 @@ static void MX_TIM3_Init(void) {
     LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM3);
 
     /* TIM3 interrupt Init */
-    NVIC_SetPriority(TIM3_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
+    NVIC_SetPriority(TIM3_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 3, 0));
     NVIC_EnableIRQ(TIM3_IRQn);
 
     /* USER CODE BEGIN TIM3_Init 1 */
@@ -297,12 +315,18 @@ static void MX_GPIO_Init(void) {
     GPIO_InitStruct.Pin = PIN_A_0Ohm_Pin | PIN_A_680Ohms_Pin | PIN_A_470kOhms_Pin | PIN_B_0Ohm_Pin | PIN_B_680Ohms_Pin;
     GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
     GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
-    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
     LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
     /**/
-    GPIO_InitStruct.Pin = PIN_B_470kOhms_Pin | PIN_C_0Ohm_Pin | PIN_C_680Ohms_Pin | PIN_C_470kOhms_Pin |
-                          LED_Transistor_Pin | LED_Diode_Pin | LED_Capacitor_Pin | LED_Resistor_Pin;
+    GPIO_InitStruct.Pin = PIN_B_470kOhms_Pin | PIN_C_0Ohm_Pin | PIN_C_680Ohms_Pin | PIN_C_470kOhms_Pin;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_OPENDRAIN;
+    LL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    /**/
+    GPIO_InitStruct.Pin = LED_Transistor_Pin | LED_Diode_Pin | LED_Capacitor_Pin | LED_Resistor_Pin;
     GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
     GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
@@ -313,7 +337,6 @@ static void MX_GPIO_Init(void) {
 }
 
 /* USER CODE BEGIN 4 */
-
 /* USER CODE END 4 */
 
 /**

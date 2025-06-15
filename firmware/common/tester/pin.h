@@ -4,8 +4,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-extern struct pad;
-
 typedef enum pin_mode {
     PIN_MODE_PUSH_PULL_LOW,
     PIN_MODE_PUSH_PULL_HIGH,

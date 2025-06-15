@@ -5,7 +5,7 @@
 
 #include "stm32f1xx_ll_gpio.h"
 
-typedef struct {
+typedef struct pad {
     GPIO_TypeDef* port;
     uint32_t pin;
 } pad_t;

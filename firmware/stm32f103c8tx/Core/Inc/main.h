@@ -70,6 +70,12 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LED_Pin LL_GPIO_PIN_13
 #define LED_GPIO_Port GPIOC
+#define PIN_A_ADC_Pin LL_GPIO_PIN_0
+#define PIN_A_ADC_GPIO_Port GPIOA
+#define PIN_B_ADC_Pin LL_GPIO_PIN_1
+#define PIN_B_ADC_GPIO_Port GPIOA
+#define PIN_C_ADC_Pin LL_GPIO_PIN_2
+#define PIN_C_ADC_GPIO_Port GPIOA
 #define PIN_A_0Ohm_Pin LL_GPIO_PIN_3
 #define PIN_A_0Ohm_GPIO_Port GPIOA
 #define PIN_A_680Ohms_Pin LL_GPIO_PIN_4

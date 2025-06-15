@@ -28,6 +28,7 @@ typedef struct component {
             char base;
             char emitter;
             char collector;
+            char* subtype;
         } transistor;
     };
 } component_t;

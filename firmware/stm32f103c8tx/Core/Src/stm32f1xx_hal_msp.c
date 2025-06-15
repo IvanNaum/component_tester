@@ -69,6 +69,8 @@ void HAL_MspInit(void) {
     __HAL_RCC_PWR_CLK_ENABLE();
 
     /* System interrupt init*/
+    /* DebugMonitor_IRQn interrupt configuration */
+    HAL_NVIC_SetPriority(DebugMonitor_IRQn, 2, 0);
 
     /** NOJTAG: JTAG-DP Disabled and SW-DP Enabled
      */
