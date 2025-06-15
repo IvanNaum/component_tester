@@ -2,12 +2,9 @@
 #define PIN_H
 
 #include <stdbool.h>
+#include <stdint.h>
 
 extern struct pad;
-
-// #define PIN_A ('A')
-// #define PIN_B ('B')
-// #define PIN_C ('C')
 
 typedef enum pin_mode {
     PIN_MODE_PUSH_PULL_LOW,
@@ -37,6 +34,7 @@ typedef struct pin {
 } pin_t;
 
 bool pin_init(pin_t* state, char name, struct pad* pins, pin_set_mode_func set_mode);
+pin_mode_t pin_set_mode(pin_t* state, pin_type_t pin_type, pin_mode_t pin_mode);
 pin_mode_t pin_get_mode(pin_t* state, pin_type_t);
 
 #endif  // PIN_H

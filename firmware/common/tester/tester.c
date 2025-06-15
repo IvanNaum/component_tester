@@ -1,6 +1,6 @@
 #include "tester.h"
 
-bool tester_init(tester_t* state, pin_t pin_A, pin_t pin_B, pin_t pin_C) {
+bool tester_init(tester_t* state, pin_t* pin_A, pin_t* pin_B, pin_t* pin_C) {
     state->pin_A = pin_A;
     state->pin_B = pin_B;
     state->pin_C = pin_C;
@@ -28,8 +28,16 @@ component_t tester_test(tester_t* state) {
     return component;
 }
 
-component_t tester_test_transistor(tester_t* state);
-component_t tester_test_diode(tester_t* state);
+component_t tester_test_transistor(tester_t* state) {
+    component_t component;
+    component_init(&component);
+    return component;
+}
+component_t tester_test_diode(tester_t* state) {
+    component_t component;
+    component_init(&component);
+    return component;
+}
 component_t tester_test_resistor(tester_t* state) {
     // 680 Ohms
     // 1. Установка pin1 680 в GND
@@ -40,5 +48,12 @@ component_t tester_test_resistor(tester_t* state) {
     // pin_A - pin_C
     // pin_B - pin_C
     // 470k Ohms
+    component_t component;
+    component_init(&component);
+    return component;
 }
-component_t tester_test_capacitor(tester_t* state);
+component_t tester_test_capacitor(tester_t* state) {
+    component_t component;
+    component_init(&component);
+    return component;
+}

@@ -27,6 +27,7 @@
 #include "leds.h"
 #include "stm32f1xx_ll_gpio.h"
 #include "stm32f1xx_ll_utils.h"
+#include "tester.h"
 #include "usbd_cdc_if.h"
 #include "vcom_console.h"
 
@@ -52,6 +53,7 @@
 /* USER CODE BEGIN PV */
 leds_t leds_status;
 console_t console_status;
+tester_t tester_status;
 
 /* USER CODE END PV */
 
@@ -104,6 +106,8 @@ int main(void) {
 
     leds_init(&leds_status);
     vcom_console_init(&console_status);
+
+    tester_impl_init(&tester_status);
 
     LL_TIM_EnableIT_UPDATE(TIM3);
     LL_TIM_EnableCounter(TIM3);

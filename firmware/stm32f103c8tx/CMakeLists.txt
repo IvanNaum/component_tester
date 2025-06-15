@@ -50,6 +50,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ./Core/Src/leds.c
     ./Core/Src/leds_command.c
     ./Core/Src/vcom_console.c
+    ./Core/Src/tester_impl.c
 
     ./common/console/console.c
     ./common/commands/commands.c
