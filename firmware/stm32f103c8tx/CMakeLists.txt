@@ -50,9 +50,17 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     ./Core/Src/leds.c
     ./Core/Src/leds_command.c
     ./Core/Src/vcom_console.c
+    ./Core/Src/tester_impl.c
+    ./Core/Src/time_utils_impl.c
 
     ./common/console/console.c
     ./common/commands/commands.c
+
+    ./common/tester/pin.c
+    ./common/tester/tester.c
+    ./common/tester/component.c
+    ./common/tester/tester_commands.c
+
 
     # LL
     ./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_gpio.c
@@ -63,6 +71,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     common
     common/leds
+    common/tester
     common/console
     common/commands
 )

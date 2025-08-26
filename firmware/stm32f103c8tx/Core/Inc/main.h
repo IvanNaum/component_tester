@@ -19,8 +19,8 @@
 /* USER CODE END Header */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H
-#define __MAIN_H
+#ifndef MAIN_H
+#define MAIN_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -70,6 +70,30 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LED_Pin LL_GPIO_PIN_13
 #define LED_GPIO_Port GPIOC
+#define PIN_A_ADC_Pin LL_GPIO_PIN_0
+#define PIN_A_ADC_GPIO_Port GPIOA
+#define PIN_B_ADC_Pin LL_GPIO_PIN_1
+#define PIN_B_ADC_GPIO_Port GPIOA
+#define PIN_C_ADC_Pin LL_GPIO_PIN_2
+#define PIN_C_ADC_GPIO_Port GPIOA
+#define PIN_A_0Ohm_Pin LL_GPIO_PIN_3
+#define PIN_A_0Ohm_GPIO_Port GPIOA
+#define PIN_A_680Ohms_Pin LL_GPIO_PIN_4
+#define PIN_A_680Ohms_GPIO_Port GPIOA
+#define PIN_A_470kOhms_Pin LL_GPIO_PIN_5
+#define PIN_A_470kOhms_GPIO_Port GPIOA
+#define PIN_B_0Ohm_Pin LL_GPIO_PIN_6
+#define PIN_B_0Ohm_GPIO_Port GPIOA
+#define PIN_B_680Ohms_Pin LL_GPIO_PIN_7
+#define PIN_B_680Ohms_GPIO_Port GPIOA
+#define PIN_B_470kOhms_Pin LL_GPIO_PIN_0
+#define PIN_B_470kOhms_GPIO_Port GPIOB
+#define PIN_C_0Ohm_Pin LL_GPIO_PIN_1
+#define PIN_C_0Ohm_GPIO_Port GPIOB
+#define PIN_C_680Ohms_Pin LL_GPIO_PIN_2
+#define PIN_C_680Ohms_GPIO_Port GPIOB
+#define PIN_C_470kOhms_Pin LL_GPIO_PIN_10
+#define PIN_C_470kOhms_GPIO_Port GPIOB
 #define LED_Transistor_Pin LL_GPIO_PIN_12
 #define LED_Transistor_GPIO_Port GPIOB
 #define LED_Diode_Pin LL_GPIO_PIN_13
@@ -87,4 +111,4 @@ void Error_Handler(void);
 }
 #endif
 
-#endif /* __MAIN_H */
+#endif  // MAIN_H

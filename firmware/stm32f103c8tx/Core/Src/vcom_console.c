@@ -5,7 +5,7 @@
 #include "usbd_cdc_if.h"
 extern leds_t leds_status;
 
-volatile bool run_console_flag = 0;  // flag for calling console from main
+extern bool run_console_flag;  // flag for calling console from main
 
 volatile uint8_t vcom_console_ring_buffer[CONSOLE_MAX_COMMAND_SIZE * 2];
 volatile uint16_t vcom_console_ring_head = 0;

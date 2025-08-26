@@ -258,7 +258,9 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t* Len) {
         new_head = (vcom_console_ring_head + 1) % (CONSOLE_MAX_COMMAND_SIZE * 2);
 
         // Проверка переполнения (если буфер полон - перестаём писать)
-        if (new_head == vcom_console_ring_tail) break;
+        if (new_head == vcom_console_ring_tail) {
+            break;
+        }
 
         vcom_console_ring_buffer[vcom_console_ring_head] = Buf[i];
         vcom_console_ring_head = new_head;
@@ -285,7 +287,9 @@ uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len) {
     uint8_t result = USBD_OK;
     /* USER CODE BEGIN 7 */
     USBD_CDC_HandleTypeDef* hcdc = (USBD_CDC_HandleTypeDef*)hUsbDeviceFS.pClassData;
-    if (hcdc->TxState != 0) { return USBD_BUSY; }
+    if (hcdc->TxState != 0) {
+        return USBD_BUSY;
+    }
     USBD_CDC_SetTxBuffer(&hUsbDeviceFS, Buf, Len);
     result = USBD_CDC_TransmitPacket(&hUsbDeviceFS);
     /* USER CODE END 7 */
